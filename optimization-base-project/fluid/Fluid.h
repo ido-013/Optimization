@@ -6,16 +6,15 @@
 #pragma warning(pop)
 #include <list>
 
-
 // Fluid magic numbers
-const double FluidTimestep = 0.005f;
-const double FluidSmoothLen = 0.012f;
-const double FluidStaticStiff = 3000.0f;
-const double FluidRestDensity = 1000.0f;
-const double FluidWaterMass = 0.0002f;
-const double FluidViscosity = 0.1f;
-const double FluidStiff = 200.0f;
-const double FluidInitialSpacing = 0.0045f;
+const float FluidTimestep = 0.005f;
+const float FluidSmoothLen = 0.012f;
+const float FluidStaticStiff = 3000.0f;
+const float FluidRestDensity = 1000.0f;
+const float FluidWaterMass = 0.0002f;
+const float FluidViscosity = 0.1f;
+const float FluidStiff = 200.0f;
+const float FluidInitialSpacing = 0.0045f;
 
 /*****************************************************************************/
 
