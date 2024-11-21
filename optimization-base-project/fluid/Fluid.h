@@ -5,6 +5,7 @@
 #include <d3dx9math.h>
 #pragma warning(pop)
 #include <list>
+#include <vector>
 
 // Fluid magic numbers
 const float FluidTimestep = 0.005f;
@@ -56,14 +57,14 @@ class Fluid
 
 		/* Common Data */
 		unsigned int * gridindices;
-		std::list<Particle*> particles;
+		std::vector<Particle*> particles;
 
 		FluidGridOffset * gridoffsets;
 		unsigned int neighbors_capacity;
 		unsigned int num_neighbors;
 		FluidNeighborRecord * neighbors;
-		
-		unsigned int Size()					{ return particles.size(); }
+
+		unsigned int Size()					{ return particles_size; }
 		unsigned int Step()					{ return step; }
 		void Pause( bool p )				{ paused = p; }
 		void PauseOnStep( unsigned int p )	{ pause_step = p; }
@@ -93,6 +94,8 @@ class Fluid
 		double height;
 		int grid_w;
 		int grid_h;
+
+		unsigned int particles_size;
 
 		/* Coefficients for kernel */
 		double poly6_coef;

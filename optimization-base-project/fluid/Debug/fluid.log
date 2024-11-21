@@ -181,17 +181,17 @@ C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\include\dxgitype.h(35,9
 C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\include\d3d10.h(608,9): warning C4005: 'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS': 매크로 재정의
 C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\include\d3d10.h(609,9): warning C4005: 'D3D10_ERROR_FILE_NOT_FOUND': 매크로 재정의
   Fluid.cpp
-C:\Users\BCA\Desktop\Optimization\optimization-base-project\fluid\Fluid.cpp(87,78): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\BCA\Desktop\Optimization\optimization-base-project\fluid\Fluid.cpp(87,46): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\BCA\Desktop\Optimization\optimization-base-project\fluid\Fluid.cpp(294,23): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\BCA\Desktop\Optimization\optimization-base-project\fluid\Fluid.cpp(301,14): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\BCA\Desktop\Optimization\optimization-base-project\fluid\Fluid.cpp(304,23): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\BCA\Desktop\Optimization\optimization-base-project\fluid\Fluid.cpp(320,39): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\BCA\Desktop\Optimization\optimization-base-project\fluid\Fluid.cpp(321,39): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\BCA\Desktop\Optimization\optimization-base-project\fluid\Fluid.cpp(330,47): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\BCA\Desktop\Optimization\optimization-base-project\fluid\Fluid.cpp(337,33): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\BCA\Desktop\Optimization\optimization-base-project\fluid\Fluid.cpp(338,33): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\BCA\Desktop\Optimization\optimization-base-project\fluid\Fluid.cpp(90,78): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\BCA\Desktop\Optimization\optimization-base-project\fluid\Fluid.cpp(297,23): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\BCA\Desktop\Optimization\optimization-base-project\fluid\Fluid.cpp(304,14): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\BCA\Desktop\Optimization\optimization-base-project\fluid\Fluid.cpp(307,23): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\BCA\Desktop\Optimization\optimization-base-project\fluid\Fluid.cpp(323,39): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\BCA\Desktop\Optimization\optimization-base-project\fluid\Fluid.cpp(324,39): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\BCA\Desktop\Optimization\optimization-base-project\fluid\Fluid.cpp(333,47): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\BCA\Desktop\Optimization\optimization-base-project\fluid\Fluid.cpp(340,33): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\BCA\Desktop\Optimization\optimization-base-project\fluid\Fluid.cpp(341,33): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   main.cpp
+  Profiler.cpp
   Rendering.cpp
 C:\Users\BCA\Desktop\Optimization\optimization-base-project\fluid\Rendering.cpp(206,26): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 C:\Users\BCA\Desktop\Optimization\optimization-base-project\fluid\Rendering.cpp(207,26): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.

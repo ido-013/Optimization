@@ -5,7 +5,6 @@
 #include <windows.h>
 #pragma warning(pop)
 
-
 Fluid * FLUID = NULL;
 
 void InitializeDirectX();
@@ -26,7 +25,8 @@ INT WINAPI wWinMain( HINSTANCE, HINSTANCE, LPWSTR, int )
 #ifdef _DEBUG
 //#error This runs really slow in Debug.  Understand?  Comment out this line, then change the next line to 0.2f
 #endif
-	FLUID->Fill( 0.1f );
+
+	FLUID->Fill( 0.5f );
 
 	InitializeDirectX();
 

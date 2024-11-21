@@ -1,6 +1,8 @@
 
 #include "Fluid.h"
 
+#include "Profiler.h"
+
 // Zero the fluid simulation member variables for sanity
 Fluid::Fluid() 
 {
@@ -12,6 +14,8 @@ Fluid::Fluid()
 	height = 0;
 	grid_w = 0;
 	grid_h = 0;
+
+	particles_size = 0;
 
 	gridindices = NULL;
 	gridoffsets = NULL;
@@ -55,13 +59,10 @@ void Fluid::Create(double w, double h)
 
 Particle* Fluid::particle_at(std::size_t index)
 {
-	if (index > particles.size())
+	if (index >= particles_size)
 		throw "out of bounds";
-	
-	auto it = particles.begin();
-	for (; index != 0; it++, index--);
 
-	return *it;
+	return particles[index];
 }
 
 // Fill a region in the lower left with evenly spaced particles
@@ -78,6 +79,8 @@ void Fluid::Fill(double size)
 		Particle* p = new Particle;
 		particles.push_back(p);
 	}
+
+	particles_size = particles.size();
 
 	// Populate
 	for ( int x = 0 ; x < w ; x++ )
@@ -109,7 +112,7 @@ void Fluid::Clear()
 __forceinline void Fluid::ExpandNeighbors() 
 {
 	// Increase the size of the neighbors array because it is full
-	neighbors_capacity += 20;
+	neighbors_capacity += 10000;
 	FluidNeighborRecord* new_neighbors = new FluidNeighborRecord[ neighbors_capacity ];
 	memcpy( new_neighbors, neighbors, sizeof(FluidNeighborRecord) * num_neighbors );
 	delete[] neighbors;
@@ -133,7 +136,7 @@ void Fluid::UpdateGrid()
 	}
 
 	// Count the number of particles in each cell
-	for( unsigned int particle = 0; particle < particles.size(); particle++ ) 
+	for( unsigned int particle = 0; particle < particles_size; particle++ )
 	{
 		// Find where this particle is in the grid
 		int p_gx = min(max((int)(particle_at(particle)->pos.x * (1.0 / FluidSmoothLen)), 0), grid_w - 1);
@@ -152,7 +155,7 @@ void Fluid::UpdateGrid()
 	}
 
 	// Insert the particles into the grid
-	for( unsigned int particle = 0; particle < particles.size(); particle++ ) 
+	for( unsigned int particle = 0; particle < particles_size; particle++ )
 	{
 		// Find where this particle is in the grid
 		int p_gx = min(max((int)(particle_at(particle)->pos.x * (1.0 / FluidSmoothLen)), 0), grid_w - 1);
@@ -172,7 +175,7 @@ void Fluid::GetNeighbors()
 
 	num_neighbors = 0;
 	
-	for( unsigned int P = 0; P < particles.size(); P++ )
+	for( unsigned int P = 0; P < particles_size; P++ )
 	{
 		// Find where this particle is in the grid
 		int p_gx = min(max((int)(particle_at(P)->pos.x * (1.0f / FluidSmoothLen)), 0), grid_w - 1);
@@ -228,7 +231,7 @@ void Fluid::GetNeighbors()
 // Compute the density for each particle based on its neighbors within the smoothing length
 void Fluid::ComputeDensity() 
 {
-	for( unsigned int particle = 0; particle < particles.size(); particle++ )
+	for( unsigned int particle = 0; particle < particles_size; particle++ )
 	{
 		// This is r = 0
 		particle_at(particle)->density = (FluidSmoothLen * FluidSmoothLen) * (FluidSmoothLen * FluidSmoothLen) * (FluidSmoothLen * FluidSmoothLen) * FluidWaterMass;
@@ -257,7 +260,7 @@ void Fluid::ComputeDensity()
 
 	// Approximate pressure as an ideal compressible gas
 	// based on a spring eqation relating the rest density
-	for( unsigned int particle = 0 ; particle < particles.size(); ++particle )
+	for( unsigned int particle = 0 ; particle < particles_size; ++particle )
 	{
 		particle_at(particle)->density *= poly6_coef;
 		particle_at(particle)->pressure = FluidStiff * max(pow(particle_at(particle)->density / FluidRestDensity, 3) - 1, 0);
@@ -321,7 +324,7 @@ void Fluid::Integrate( double dt )
 	planes.push_back( D3DXVECTOR3(0, -1, height) );
 
 	D3DXVECTOR2 gravity = D3DXVECTOR2(0, 1);
-	for( unsigned int particle = 0 ; particle < particles.size() ; ++particle ) 
+	for( unsigned int particle = 0 ; particle < particles_size; ++particle )
 	{
 		// Walls
 		for( auto it = planes.begin(); it != planes.end(); it++ )
