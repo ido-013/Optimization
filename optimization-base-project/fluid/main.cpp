@@ -26,7 +26,7 @@ INT WINAPI wWinMain( HINSTANCE, HINSTANCE, LPWSTR, int )
 //#error This runs really slow in Debug.  Understand?  Comment out this line, then change the next line to 0.2f
 #endif
 
-	FLUID->Fill( 1.f );
+	FLUID->Fill( 0.1f );
 
 	InitializeDirectX();
 

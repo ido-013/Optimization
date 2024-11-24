@@ -34,15 +34,6 @@ struct FluidGridOffset
 
 /*****************************************************************************/
 
-struct Particle
-{
-	D3DXVECTOR2 pos;
-	D3DXVECTOR2 vel;
-	D3DXVECTOR2 acc;
-	double density = 0;
-	double pressure = 0;
-};
-
 class Fluid 
 {
 	public:
@@ -57,7 +48,11 @@ class Fluid
 
 		/* Common Data */
 		unsigned int * gridindices;
-		std::vector<Particle*> particles;
+		std::vector<D3DXVECTOR2> particle_positions;
+		std::vector<D3DXVECTOR2> particle_velocities;
+		std::vector<D3DXVECTOR2> particle_accelerations;
+		std::vector<double> particle_densities;
+		std::vector<double> particle_pressures;
 
 		FluidGridOffset * gridoffsets;
 		unsigned int neighbors_capacity;
@@ -70,7 +65,6 @@ class Fluid
 		void PauseOnStep( unsigned int p )	{ pause_step = p; }
 		double Width()						{ return width; }
 		double Height()						{ return height; }
-		Particle* particle_at(std::size_t index);
 
 	private:
 		
