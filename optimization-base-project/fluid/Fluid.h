@@ -19,21 +19,6 @@ const float FluidInitialSpacing = 0.0045f;
 
 /*****************************************************************************/
 
-struct FluidNeighborRecord 
-{
-	unsigned int p; // Particle Index
-	unsigned int n; // Neighbor Index		
-	double distsq; // Distance Squared and Non-Squared (After Density Calc)
-};
-
-struct FluidGridOffset 
-{
-	unsigned int offset; // offset into gridindices
-	unsigned int count; // number of particles in cell
-};
-
-/*****************************************************************************/
-
 class Fluid 
 {
 	public:
@@ -48,16 +33,22 @@ class Fluid
 
 		/* Common Data */
 		unsigned int * gridindices;
+
 		std::vector<D3DXVECTOR2> particle_positions;
 		std::vector<D3DXVECTOR2> particle_velocities;
 		std::vector<D3DXVECTOR2> particle_accelerations;
 		std::vector<double> particle_densities;
 		std::vector<double> particle_pressures;
 
-		FluidGridOffset * gridoffsets;
+		std::vector<unsigned int> gridoffsets_offset;
+		std::vector<unsigned int> gridoffsets_count;
+
 		unsigned int neighbors_capacity;
 		unsigned int num_neighbors;
-		FluidNeighborRecord * neighbors;
+
+		std::vector<unsigned int> neighbors_p;
+		std::vector<unsigned int> neighbors_n;
+		std::vector<double> neighbors_distsq;
 
 		unsigned int Size()					{ return particles_size; }
 		unsigned int Step()					{ return step; }
@@ -70,7 +61,6 @@ class Fluid
 		
 		/* Simulation */
 		void UpdateGrid();
-		__forceinline void ExpandNeighbors();
 		void GetNeighbors();
 		void ComputeDensity();
 		void SqrtDist();
