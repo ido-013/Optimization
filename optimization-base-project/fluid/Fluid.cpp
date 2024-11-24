@@ -21,7 +21,7 @@ Fluid::Fluid()
 	gridoffsets = NULL;
 	num_neighbors = 0;
 	// If this value is too small, ExpandNeighbors will fix it
-	neighbors_capacity = 263 * 1200;
+	neighbors_capacity = 263 * 1200 * 4;
 	neighbors = new FluidNeighborRecord[ neighbors_capacity ];
 
 	// Precompute kernel coefficients
@@ -112,7 +112,7 @@ void Fluid::Clear()
 __forceinline void Fluid::ExpandNeighbors() 
 {
 	// Increase the size of the neighbors array because it is full
-	neighbors_capacity += 10000;
+	neighbors_capacity *= 2;
 	FluidNeighborRecord* new_neighbors = new FluidNeighborRecord[ neighbors_capacity ];
 	memcpy( new_neighbors, neighbors, sizeof(FluidNeighborRecord) * num_neighbors );
 	delete[] neighbors;
