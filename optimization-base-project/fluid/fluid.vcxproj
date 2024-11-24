@@ -122,7 +122,6 @@
     <ClCompile Include="DXUT\Optional\SDKmisc.cpp" />
     <ClCompile Include="Fluid.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Profiler.cpp" />
     <ClCompile Include="Rendering.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -134,7 +133,6 @@
     <ClInclude Include="DXUT\Optional\DXUTsettingsdlg.h" />
     <ClInclude Include="DXUT\Optional\SDKmisc.h" />
     <ClInclude Include="Fluid.h" />
-    <ClInclude Include="Profiler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

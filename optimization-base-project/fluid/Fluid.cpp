@@ -1,7 +1,7 @@
 
 #include "Fluid.h"
 
-#include "Profiler.h"
+#pragma omp parallel
 
 // Zero the fluid simulation member variables for sanity
 Fluid::Fluid() 
@@ -130,12 +130,14 @@ void Fluid::UpdateGrid()
 	int S = (grid_w * grid_h);
 
 	// Clear the offsets
+	#pragma omp for
 	for( int offset = 0; offset < S; offset++ ) 
 	{
 		gridoffsets[offset].count = 0;
 	}
 
 	// Count the number of particles in each cell
+	#pragma omp for
 	for( unsigned int particle = 0; particle < particles_size; particle++ )
 	{
 		// Find where this particle is in the grid
@@ -147,7 +149,8 @@ void Fluid::UpdateGrid()
 
 	// Prefix sum all of the cells
 	unsigned int sum = 0;
-	for( int offset = 0; offset < (grid_w * grid_h); offset++ ) 
+	#pragma omp for
+	for( int offset = 0; offset < S; offset++ ) 
 	{
 		gridoffsets[offset].offset = sum;
 		sum += gridoffsets[offset].count;
@@ -155,6 +158,7 @@ void Fluid::UpdateGrid()
 	}
 
 	// Insert the particles into the grid
+	#pragma omp for
 	for( unsigned int particle = 0; particle < particles_size; particle++ )
 	{
 		// Find where this particle is in the grid
@@ -175,6 +179,7 @@ void Fluid::GetNeighbors()
 
 	num_neighbors = 0;
 	
+	#pragma omp for
 	for( unsigned int P = 0; P < particles_size; P++ )
 	{
 		// Find where this particle is in the grid
@@ -231,6 +236,7 @@ void Fluid::GetNeighbors()
 // Compute the density for each particle based on its neighbors within the smoothing length
 void Fluid::ComputeDensity() 
 {
+	#pragma omp for
 	for( unsigned int particle = 0; particle < particles_size; particle++ )
 	{
 		// This is r = 0
@@ -238,6 +244,7 @@ void Fluid::ComputeDensity()
 	}
 
 	// foreach neighboring pair of particles
+	#pragma omp for
 	for( unsigned int i = 0; i < num_neighbors ; i++ ) 
 	{		
 		// distance squared
@@ -260,10 +267,14 @@ void Fluid::ComputeDensity()
 
 	// Approximate pressure as an ideal compressible gas
 	// based on a spring eqation relating the rest density
+	#pragma omp for
 	for( unsigned int particle = 0 ; particle < particles_size; ++particle )
 	{
 		particle_at(particle)->density *= poly6_coef;
-		particle_at(particle)->pressure = FluidStiff * max(pow(particle_at(particle)->density / FluidRestDensity, 3) - 1, 0);
+		
+		double den = particle_at(particle)->density / FluidRestDensity;
+		double den_pow3 = den * den * den;
+		particle_at(particle)->pressure = FluidStiff * max(den_pow3 - 1, 0);
 	}
 }
 
@@ -271,6 +282,7 @@ void Fluid::ComputeDensity()
 // Perform a batch of sqrts to turn distance squared into distance
 void Fluid::SqrtDist() 
 {
+	#pragma omp for
 	for( unsigned int i = 0; i < num_neighbors; i++ ) 
 	{
 		neighbors[i].distsq = sqrt(neighbors[i].distsq);
@@ -283,6 +295,7 @@ void Fluid::SqrtDist()
 void Fluid::ComputeForce() 
 {
 	// foreach neighboring pair of particles
+	#pragma omp for
 	for( unsigned int i = 0; i < num_neighbors; i++ ) 
 	{				
 		// Compute force due to pressure and viscosity
@@ -324,6 +337,7 @@ void Fluid::Integrate( double dt )
 	planes.push_back( D3DXVECTOR3(0, -1, height) );
 
 	D3DXVECTOR2 gravity = D3DXVECTOR2(0, 1);
+	#pragma omp for
 	for( unsigned int particle = 0 ; particle < particles_size; ++particle )
 	{
 		// Walls
